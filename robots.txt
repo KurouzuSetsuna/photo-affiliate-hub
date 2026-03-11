@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://KurouzuSetsuna.github.io/product-recommendation-site/sitemap.xml
