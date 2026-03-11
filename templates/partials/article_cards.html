@@ -1,0 +1,13 @@
+{% if articles %}
+<div class="article-list">
+  {% for article in articles %}
+  <article class="article-card">
+    <a href="{{ base_path }}{{ article.url }}">
+      <h3>{{ article.title }}</h3>
+      <p>{{ article.description }}</p>
+      {% if article.updated_at %}<time>{{ article.updated_at }}</time>{% endif %}
+    </a>
+  </article>
+  {% endfor %}
+</div>
+{% endif %}

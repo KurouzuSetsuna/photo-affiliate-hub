@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ (page_title ~ ' | ') if page_title else '' }}{{ site.title }}{% endblock %}</title>
+  <meta name="description" content="{{ page_description or site.description }}">
+  <link rel="canonical" href="{{ site.url }}{{ canonical_path | default('') }}">
+  <meta property="og:title" content="{{ page_title or site.title }}">
+  <meta property="og:description" content="{{ page_description or site.description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}{{ canonical_path | default('') }}">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="{{ base_path }}/assets/css/style.css">
+  {% if config.analytics.ga_measurement_id %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ config.analytics.ga_measurement_id }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ config.analytics.ga_measurement_id }}');
+  </script>
+  {% endif %}
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  {% include 'partials/header.html' %}
+  <main class="site-main">
+    <div class="container">
+      {% if breadcrumbs %}{% include 'partials/breadcrumbs.html' %}{% endif %}
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+  {% include 'partials/footer.html' %}
+  <script src="{{ base_path }}/assets/js/main.js"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

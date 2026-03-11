@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="usecase-page">
+  <header class="usecase-header">
+    <h1>{{ page_title }}</h1>
+    {% if updated_at %}<time class="updated-at">最終更新: {{ updated_at }}</time>{% endif %}
+    <p class="affiliate-disclosure">※本記事にはアフィリエイトリンクが含まれています。<a href="{{ base_path }}/disclosure/">詳細</a></p>
+  </header>
+
+  <div class="article-body">{{ content }}</div>
+
+  {% if related_items %}
+  <section class="related-items-section">
+    <h2>おすすめ商品</h2>
+    {% include 'partials/related_items.html' %}
+  </section>
+  {% endif %}
+</article>
+{% endblock %}

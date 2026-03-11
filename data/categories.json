@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "camera-bags",
+    "name": "カメラバッグ",
+    "description": "用途別・サイズ別に比較できるカメラバッグ特集",
+    "item_data_file": "camera_bags.json"
+  },
+  {
+    "slug": "tripods",
+    "name": "三脚",
+    "description": "軽量・動画向け・コスパ重視で比較する三脚特集",
+    "item_data_file": "tripods.json"
+  },
+  {
+    "slug": "sd-cards",
+    "name": "SDカード",
+    "description": "V60 / V90 を中心に動画向けSDカードを比較",
+    "item_data_file": "sd_cards.json"
+  }
+]

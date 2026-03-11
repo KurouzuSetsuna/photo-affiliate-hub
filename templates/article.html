@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="article-page">
+  <header class="article-header">
+    <h1>{{ page_title }}</h1>
+    {% if updated_at %}<time class="updated-at">最終更新: {{ updated_at }}</time>{% endif %}
+    <p class="affiliate-disclosure">※本記事にはアフィリエイトリンクが含まれています。<a href="{{ base_path }}/disclosure/">詳細</a></p>
+  </header>
+
+  {% if related_items %}
+  {% include 'partials/related_items.html' %}
+  {% endif %}
+
+  <div class="article-body">{{ content }}</div>
+
+  {% if related_items %}
+  <section class="cta-section">
+    <h2>この記事で紹介した商品</h2>
+    {% include 'partials/related_items.html' %}
+  </section>
+  {% endif %}
+
+  {% if fm.related_articles %}
+  <section class="related-articles">
+    <h2>関連記事</h2>
+    {% set articles = fm.related_articles %}
+    {% include 'partials/article_cards.html' %}
+  </section>
+  {% endif %}
+</article>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="item-page">
+  <header class="item-header">
+    <p class="item-brand-label">{{ item.brand }}</p>
+    <h1>{{ item.name }}</h1>
+    {% if item.price_range %}<p class="item-price-range">参考価格: {{ item.price_range }}</p>{% endif %}
+  </header>
+
+  {% if affiliate_url %}
+  <div class="cta-top">
+    <a href="{{ affiliate_url }}" class="btn btn-amazon btn-large" target="_blank" rel="noopener nofollow">Amazonで価格を確認する</a>
+    <p class="affiliate-disclosure">※アフィリエイトリンクです。<a href="{{ base_path }}/disclosure/">詳細</a></p>
+  </div>
+  {% endif %}
+
+  {% if item.image %}
+  <div class="item-main-image">
+    <img src="{{ base_path }}{{ item.image }}" alt="{{ item.name }}">
+  </div>
+  {% endif %}
+
+  <section class="item-description">
+    <h2>商品概要</h2>
+    <p>{{ item.description }}</p>
+  </section>
+
+  {% if item.features %}
+  <section class="item-features">
+    <h2>特長</h2>
+    <ul>
+      {% for f in item.features %}<li>{{ f }}</li>{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if item.suitable_for %}
+  <section class="item-suitable">
+    <h2>こんな方におすすめ</h2>
+    <ul>
+      {% for s in item.suitable_for %}<li>{{ s }}</li>{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <section class="item-specs">
+    <h2>スペック</h2>
+    <table class="spec-table">
+      <tbody>
+        <tr><th>ブランド</th><td>{{ item.brand }}</td></tr>
+        {% if item.capacity %}<tr><th>容量</th><td>{{ item.capacity }}</td></tr>{% endif %}
+        {% if item.speed_class %}<tr><th>スピードクラス</th><td>{{ item.speed_class }}</td></tr>{% endif %}
+        {% if item.read_speed %}<tr><th>読み込み速度</th><td>{{ item.read_speed }}MB/s</td></tr>{% endif %}
+        {% if item.write_speed %}<tr><th>書き込み速度</th><td>{{ item.write_speed }}MB/s</td></tr>{% endif %}
+        {% if item.weight %}<tr><th>重量</th><td>{{ item.weight }}g</td></tr>{% endif %}
+        {% if item.max_load %}<tr><th>最大耐荷重</th><td>{{ item.max_load }}g</td></tr>{% endif %}
+        {% if item.max_height %}<tr><th>最大高さ</th><td>{{ item.max_height }}cm</td></tr>{% endif %}
+        {% if item.material %}<tr><th>素材</th><td>{{ item.material }}</td></tr>{% endif %}
+        {% if item.waterproof is not none %}<tr><th>防水</th><td>{{ '対応' if item.waterproof else '非対応' }}</td></tr>{% endif %}
+      </tbody>
+    </table>
+  </section>
+
+  {% if affiliate_url %}
+  <div class="cta-bottom">
+    <a href="{{ affiliate_url }}" class="btn btn-amazon btn-large" target="_blank" rel="noopener nofollow">Amazonで購入する</a>
+  </div>
+  {% endif %}
+
+  {% if related_items %}
+  <section class="related-items-section">
+    <h2>同じカテゴリの商品</h2>
+    {% set related_items = related_items %}
+    {% include 'partials/related_items.html' %}
+  </section>
+  {% endif %}
+</article>
+{% endblock %}
