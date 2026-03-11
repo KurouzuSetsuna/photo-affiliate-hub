@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(ls /Users/jp17353/workspace/ClaudeCode/tool/CameraOptions/photo-affiliate-hub/data/ && python3 -c \"import yaml; yaml.safe_load\\(open\\('/Users/jp17353/workspace/ClaudeCode/tool/CameraOptions/photo-affiliate-hub/config.yml'\\)\\); print\\('config.yml is valid YAML'\\)\")",
-      "Bash(cd /Users/jp17353/workspace/ClaudeCode/tool/CameraOptions/photo-affiliate-hub && pip install -r requirements.txt --quiet 2>&1)",
-      "Bash(cd /Users/jp17353/workspace/ClaudeCode/tool/CameraOptions/photo-affiliate-hub && python scripts/generate.py 2>&1)"
-    ]
-  }
-}
