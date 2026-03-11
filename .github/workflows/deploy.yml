@@ -1,58 +1,43 @@
-name: Build and Deploy
+name: Deploy site to public repo
 
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
-  schedule:
-    - cron: '0 21 * * *'  # 毎日 JST 06:00 (UTC 21:00)
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
+    branches:
+      - main
 
 jobs:
-  build:
+  build-and-deploy:
+
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
 
-      - name: Build site
+      - name: Generate site
+        run: |
+          python scripts/generate.py
+
+      - name: Deploy to public repository
         env:
-          AMAZON_ASSOCIATE_ID: ${{ secrets.AMAZON_ASSOCIATE_ID }}
-          GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
-        run: python scripts/generate.py
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site/
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git clone https://x-access-token:${TOKEN}@github.com/KurouzuSetsuna/photo-affiliate-hub.git public_repo
+          rm -rf public_repo/*
+          cp -r site/* public_repo/
+          cd public_repo
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Auto deploy site"
+          git push
